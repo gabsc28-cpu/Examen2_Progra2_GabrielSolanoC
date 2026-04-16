@@ -1,0 +1,143 @@
+PROMPTS UTILIZADOS EN LA CREACIÓN DEL PROYECTO 
+
+1. Diseño de arquitectura
+
+Prompts utilizados:
+- Necesito desarrollar un sistema de parqueo en Java con Swing usando arquitectura por capas. ¿Qué paquetes y clases debería crear?
+- Recuerda que tengo restricciones: la presentación no puede acceder a datos directamente. Ajusta la estructura a eso.
+
+Parte del sistema generada:
+Estructura base del proyecto (paquetes y clases principales).
+
+Modificaciones realizadas:
+- Revisé la propuesta inicial para asegurar que cumpliera con la restricción de dependencias entre capas.
+- Decidí mover la clase principal (App) al paquete presentacion para mantener coherencia con la interfaz.
+- Ajusté nombres de paquetes a cr.ac.parqueo para mantener consistencia.
+
+--------------------------------------------------
+
+2. Creación de entidades (Vehiculo y Registro)
+
+Prompts utilizados:
+- Genera las clases Vehiculo y Registro para un sistema de parqueo en Java.
+- Asegúrate de que las entidades no tengan lógica de negocio.
+
+Parte del sistema generada:
+Clases Vehiculo y Registro.
+
+Modificaciones realizadas:
+- Verifiqué que las clases fueran simples (solo atributos y getters/setters).
+- Agregué el método isActivo() en Registro para facilitar el manejo del estado.
+- Ajusté constructores según cómo se utilizan en la lógica del sistema.
+
+--------------------------------------------------
+
+3. Implementación de acceso a datos (RegistroDAO)
+
+Prompts utilizados:
+- Necesito un DAO en Java que guarde registros en archivos .txt.
+- Sepáralo entre activos e historial y evita lógica de negocio.
+
+Parte del sistema generada:
+Clase RegistroDAO.
+
+Modificaciones realizadas:
+- Definí el uso de dos archivos: activos.txt y historial.txt.
+- Revisé el formato de almacenamiento (CSV) para que fuera fácil de manejar.
+- Ajusté manualmente el flujo de salida para eliminar de activos y agregar a historial.
+- Validé que no hubiera dependencia con la interfaz gráfica.
+
+--------------------------------------------------
+
+4. Lógica de negocio (ParqueoService)
+
+Prompts utilizados:
+- Implementa la lógica de negocio para registrar ingreso y salida de vehículos con validaciones.
+- Incluye validación de placas duplicadas y cálculo de cobro por hora.
+
+Parte del sistema generada:
+Clase ParqueoService.
+
+Modificaciones realizadas:
+- Añadí validación manual para evitar ingresos duplicados.
+- Ajusté el cálculo de monto usando redondeo hacia arriba (ceil) por hora o fracción.
+- Implementé validación de formato de placa (XXX-111) mediante expresión regular.
+- Me aseguré de que toda la lógica estuviera separada de la interfaz gráfica.
+
+--------------------------------------------------
+
+5. Interfaz gráfica (Swing)
+
+Prompts utilizados:
+- Genera una interfaz en Swing con pestañas para ingreso, salida e historial.
+- No uses JOptionPane, usa componentes dentro de la interfaz.
+
+Parte del sistema generada:
+Clases MainFrame, PanelIngreso, PanelSalida y PanelHistorial.
+
+Modificaciones realizadas:
+- Ajusté los layouts para mejorar la organización visual.
+- Reemplacé cualquier salida tipo popup por mensajes en JLabel.
+- Integré correctamente la capa lógica (ParqueoService) en cada panel.
+- Verifiqué que la UI no accediera directamente al DAO.
+
+--------------------------------------------------
+
+6. Actualización dinámica de tablas
+
+Prompts utilizados:
+- Después de registrar datos, la tabla no se actualiza en Swing. ¿Cómo lo soluciono?
+- Quiero que se recargue cuando cambio de pestaña.
+
+Parte del sistema generada:
+Lógica de actualización en MainFrame y paneles.
+
+Modificaciones realizadas:
+- Detecté que las tablas solo cargaban datos en el constructor.
+- Hice públicos los métodos cargarTabla() en los paneles.
+- Implementé un ChangeListener en el JTabbedPane para recargar datos al cambiar de pestaña.
+- Probé el flujo completo (ingreso → salida → historial) para validar el comportamiento.
+
+--------------------------------------------------
+
+7. Validación de formato de placa
+
+Prompts utilizados:
+- ¿Cómo valido en Java que una placa tenga formato XXX-111?
+- También quiero evitar errores desde la interfaz.
+
+Parte del sistema generada:
+Validación en lógica y mejora en la interfaz.
+
+Modificaciones realizadas:
+- Implementé validación con expresión regular en ParqueoService.
+- Convertí las placas a mayúsculas antes de validar.
+- Añadí opcionalmente una máscara en el campo de entrada para guiar al usuario.
+
+--------------------------------------------------
+
+8. Manejo de tablas (UtilidadesTablas)
+
+Prompts utilizados:
+- Necesito una forma de cargar datos en JTable sin que sean editables.
+
+Parte del sistema generada:
+Clase UtilidadesTablas.
+
+Modificaciones realizadas:
+- Integré la clase en el paquete utilidades.
+- Ajusté su uso en PanelSalida y PanelHistorial.
+- Verifiqué que las tablas fueran de solo lectura y con selección simple.
+
+--------------------------------------------------
+
+Conclusión
+
+Durante el desarrollo utilicé IA como apoyo para generar estructuras base y resolver dudas específicas. Sin embargo, realicé múltiples ajustes manuales para:
+
+- Cumplir con las restricciones de arquitectura
+- Corregir errores de actualización en la interfaz
+- Implementar validaciones adicionales
+- Asegurar una correcta separación de responsabilidades
+
+El resultado final es una solución adaptada manualmente y no una simple generación automática de código.
